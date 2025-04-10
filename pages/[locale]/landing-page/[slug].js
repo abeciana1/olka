@@ -4,7 +4,7 @@ import ErrorPage from "next/error";
 
 import camelcaseKeys from 'camelcase-keys';
 
-import { getLandingPage, getLandingPages, getPostsData } from '@/lib/api'
+import { getLandingPage, getPostsData } from '@/lib/api'
 
 import LandingPageSection from '@/components/landing-page-sections/landing-page-section'
 import Blog from "@/components/blog/blog";
@@ -43,40 +43,58 @@ export default function LandingPage({ page, blogPosts }) {
   )
 }
 
-export async function getStaticProps({ params }) {
-  try {
-    console.log('params', params)
-    const page = await getLandingPage(params.slug);
-    const blogPosts = (await getPostsData({page: 1, pageSize: 2})).posts
-
-    return { props: { page: camelcaseKeys(page), blogPosts: camelcaseKeys(blogPosts) } };
-  } catch (e) {
-    console.error(`Couldn't load content for Landing page ${params.slug}.`, e)
-
-    return {
-      notFound: true
+export const getServerSideProps = async (context) => {
+  const { params } = context
+  const preview = context?.query?.preview === '1' ? 1 : 0
+  const page = await getLandingPage(params.slug, params.locale, preview)
+  const blogPosts = (await getPostsData({page: 1, pageSize: 2})).posts
+  return {
+    props: {
+      page: camelcaseKeys(page),
+      blogPosts: camelcaseKeys(blogPosts)
     }
   }
 }
 
-export async function getStaticPaths() {
-  const butterToken = process.env.NEXT_PUBLIC_BUTTER_CMS_API_KEY
+// export async function getStaticProps({ params }) {
+//   try {
+//     console.log('params', params)
+//     const page = await getLandingPage(params.slug);
+//     const blogPosts = (await getPostsData({page: 1, pageSize: 2})).posts
 
-  if (butterToken) {
-    try {
-      const landingPages = await getLandingPages();
+//     return { props: { page: camelcaseKeys(page), blogPosts: camelcaseKeys(blogPosts) } };
+//   } catch (e) {
+//     console.error(`Couldn't load content for Landing page ${params.slug}.`, e)
 
-      return {
-        paths: landingPages.map((page) => `/landing-page/${page.slug}`),
-        fallback: true,
-      };
-    } catch (e) {
-      console.error("Couldn't load content for Landing pages.", e)
-    }
+//     return {
+//       notFound: true
+//     }
+//   }
+// }
 
-    return {
-      paths: [],
-      fallback: false,
-    };
-  }
-}
+// export async function getStaticPaths() {
+//   const butterToken = process.env.NEXT_PUBLIC_BUTTER_CMS_API_KEY
+
+//   if (butterToken) {
+//     try {
+//       const landingPages = await getLandingPages();
+
+//       console.log('landingPages', landingPages)
+
+//       return {
+//         paths: landingPages.map((page) => {
+//           console.log('**page', page)
+//           return `/landing-page/${page.slug}`
+//         }),
+//         fallback: true,
+//       };
+//     } catch (e) {
+//       console.error("Couldn't load content for Landing pages.", e)
+//     }
+
+//     return {
+//       paths: [],
+//       fallback: false,
+//     };
+//   }
+// }
