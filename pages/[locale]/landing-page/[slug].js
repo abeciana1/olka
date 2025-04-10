@@ -45,6 +45,7 @@ export default function LandingPage({ page, blogPosts }) {
 
 export async function getStaticProps({ params }) {
   try {
+    console.log('params', params)
     const page = await getLandingPage(params.slug);
     const blogPosts = (await getPostsData({page: 1, pageSize: 2})).posts
 
