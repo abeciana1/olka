@@ -12,7 +12,6 @@ export default function Hero({ headline, subheadline, image, buttonLabel, button
 							<p>{subheadline}</p>
 
 							<a href={buttonUrl} className="main-btn btn-hover">{buttonLabel}</a>
-							<a href="https://buttercms.com/join/">Need an account?</a>
 						</div>
 					</div>
 					{image && <div className="col-xxl-6 col-xl-6 col-lg-6">

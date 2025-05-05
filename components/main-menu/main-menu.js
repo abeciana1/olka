@@ -3,8 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import MainMenuLink from "./main-menu-link";
 
 export default function MainMenu({ mainMenuLinks }) {
-    console.log('mainMenuLinks', mainMenuLinks)
-    const [activeMenuLink, setActiveMenuLink] = useState(mainMenuLinks?.length ? mainMenuLinks[0].url : '');
+    const [activeMenuLink, setActiveMenuLink] = useState(mainMenuLinks.length ? mainMenuLinks[0].url : '');
 
     function highlightLinks() {
         const sections = document.querySelectorAll('.page-scroll');
@@ -65,7 +64,7 @@ export default function MainMenu({ mainMenuLinks }) {
             <div className="collapse navbar-collapse sub-menu-bar" ref={menuLinksEl} id="navbarSupportedContent">
                 <div className="ms-auto">
                     <ul id="nav" className="navbar-nav ms-auto">
-                        {mainMenuLinks?.map(navLink => (
+                        {mainMenuLinks.map(navLink => (
                             <MainMenuLink
                                 key={navLink.url}
                                 url={navLink.url}
