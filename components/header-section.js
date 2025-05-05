@@ -5,7 +5,6 @@ import Image from "next/image";
 import MainMenu from "./main-menu/main-menu";
 
 export default function HeaderSection({ mainMenu }) {
-    console.log('main menu', mainMenu)
     const [isNavbarSticky, setIsNavbarSticky] = useState(false);
     const navbarAreaEl = useRef(null);
 
@@ -32,7 +31,7 @@ export default function HeaderSection({ mainMenu }) {
                             <nav className="navbar navbar-expand-lg">
                                 <a className="navbar-brand" href="https://buttercms.com">
                                     <Image
-                                        src={mainMenu.logo || "https://cdn.buttercms.com/PBral0NQGmmFzV0uG7Q6"}
+                                        src="https://cdn.buttercms.com/PBral0NQGmmFzV0uG7Q6"
                                         alt="Logo"
                                         width={180}
                                         height={45}
@@ -41,7 +40,7 @@ export default function HeaderSection({ mainMenu }) {
                                             height: "auto"
                                         }} />
                                 </a>
-                                <MainMenu mainMenuLinks={mainMenu.mainMenu} />
+                                <MainMenu mainMenuLinks={mainMenu} />
                             </nav>
                         </div>
                     </div>
