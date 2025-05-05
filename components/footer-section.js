@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export default function FooterSection({ mainMenu }) {
-    const links = mainMenu.mainMenu.map(link => ({
+    const links = mainMenu?.mainMenu?.map(link => ({
         ...link,
         url: link.url[0] === "#" ? `/${link.url}` : link.url})
     )
@@ -38,7 +38,7 @@ export default function FooterSection({ mainMenu }) {
                         <div className="footer-widget">
                             <h3>About Us</h3>
                             <ul className="links">
-                                {links.map((navLink) => (
+                                {links?.map((navLink) => (
                                     <li key={navLink.url}>
                                         <a href={navLink.url}>{navLink.label}</a>
                                     </li>
