@@ -11,6 +11,7 @@ import Blog from "@/components/blog/blog";
 import Preloader from '@/components/preloader';
 
 export default function LandingPage({ page, blogPosts }) {
+  console.log('page props', page)
   const router = useRouter();
   if (router.isFallback) {
     return <Preloader />
