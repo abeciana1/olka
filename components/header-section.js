@@ -5,6 +5,7 @@ import Image from "next/image";
 import MainMenu from "./main-menu/main-menu";
 
 export default function HeaderSection({ mainMenu }) {
+    console.log('main menu', mainMenu)
     const [isNavbarSticky, setIsNavbarSticky] = useState(false);
     const navbarAreaEl = useRef(null);
 
