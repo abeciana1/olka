@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 
 import MainMenuLink from "./main-menu-link";
 
-export default function ManiMenu({ mainMenuLinks }) {
+export default function MainMenu({ mainMenuLinks }) {
     const [activeMenuLink, setActiveMenuLink] = useState(mainMenuLinks.length ? mainMenuLinks[0].url : '');
 
     function highlightLinks() {
